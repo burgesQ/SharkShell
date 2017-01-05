@@ -21,29 +21,36 @@ set (
 )
 
 # C++ Flags
+# C++ 14
 set (
     CMAKE_CXX_FLAGS "-Wall -std=c++14 -g3 -O0"
 )
-
-# C++ 14
 set (
     CMAKE_CXX_STANDARD 14
 )
 
-# file
-include_directories(
-   ${CMAKE_CURRENT_SOURCE_DIR}/includes
-)
+find_package(Curses REQUIRED)
 
+# Directorys
 set (
     SOURCES_DIR ./srcs
 )
 
-set ( SOURCES_SHARK_SHELL
+set (
+    SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
 )
 
-add_executable(
-     SharkShell
-     ${SOURCES_SHARK_SHELL}
+include_directories(
+    ${CURSES_INCLUDE_DIR}
+)
+
+add_executable (
+    SharkShell
+    ${SOURCES_SHARK_SHELL}
+)
+
+target_link_libraries (
+    SharkShell
+    ${CURSES_LIBRARIES}
 )
