@@ -1,3 +1,6 @@
+#ifndef         __NCURSES_HPP__
+# define        __NCURSES_HPP__
+
 # include	<ncurses.h>
 
 class		Ncurses
@@ -5,12 +8,18 @@ class		Ncurses
 
 public :
 
-  Ncurses();
+  explicit Ncurses();
   ~Ncurses();
 
+  void          clear();
+  void          update();
+  void          close();
+  void          displayChar(const int ch);
   const int	getCh() const;
-  bool		setCh(int ch);
+  void		setCh(const int ch);
 
 private :
   int	_ch;
-}
+};
+
+#endif          // !__NCURSES_HPP__

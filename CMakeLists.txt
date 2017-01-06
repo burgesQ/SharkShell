@@ -39,10 +39,15 @@ set (
 set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
+    ${SOURCES_DIR}/Ncurses.cpp
 )
 
 include_directories(
     ${CURSES_INCLUDE_DIR}
+)
+
+include_directories(
+    includes
 )
 
 add_executable (
