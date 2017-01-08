@@ -40,6 +40,7 @@ set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
     ${SOURCES_DIR}/Ncurses.cpp
+    ${SOURCES_DIR}/SharkShell.cpp
 )
 
 include_directories(
