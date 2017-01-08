@@ -10,14 +10,17 @@ class		ConfFile
 
 public :
 
-  explicit	ConfFile( std::shared_ptr< SharkEnv > envp );
+  explicit	ConfFile(  std::shared_ptr< SharkEnv > envp);
   ~ConfFile();
 
-  void		rcFile();
+  std::map<const std::string, std::string >	rcFile();
 
 private :
 
-  std::shared_ptr< SharkEnv >	_sharkEnv;
+  void						setEnv( const std::string & envLine );
+
+  char **					_tabEnvp;
+  std::map<const std::string, std::string>	_mapEnvp;
 
 };
 
