@@ -23,7 +23,7 @@ set (
 # C++ Flags
 # C++ 14
 set (
-    CMAKE_CXX_FLAGS "-Wall -std=c++14 -g3 -O0"
+    CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++14 -g3 -O0"
 )
 
 set (
@@ -38,6 +38,8 @@ set (
 set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
+    ${SOURCES_DIR}/SharkEnv.cpp
+    ${SOURCES_DIR}/SharkAlias.cpp
     ${SOURCES_DIR}/ConfFile.cpp
 )
 

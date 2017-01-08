@@ -3,50 +3,21 @@
 
 # include	"ConfFile.hpp"
 
-ConfFile::ConfFile( char ** envp )
-  :  _tabEnvp(envp),
-  _mapEnvp()
-
-{
-  for ( int i = 0; _tabEnvp[i]; ++i )
-    {
-      std::string line ( _tabEnvp[i] ) ;
-      this->setEnv( line );
-    }
-}
+ConfFile::ConfFile( std::shared_ptr< SharkEnv > envp )
+  :  _sharkEnv( envp )
+{}
 
 ConfFile::~ConfFile()
 {}
 
-void		ConfFile::setEnv( const std::string & envLine )
+void	ConfFile::rcFile()
 {
-  bool		equal = false;
-  std::string	value;
-  std::string	key;
+  std::string		home = _sharkEnv->get( "HOME" );
+  std::ifstream		infile;
 
-  std::cout << envLine << std::endl;
+  infile.open ( home + "/.sharkshellrc" );
 
-  for ( int i = 0; envLine[i]; ++i )
-    if ( envLine[i] == '=' && !equal )
-      equal = true;
-    else if (!equal)
-      key += envLine[i];
-    else
-      value += envLine[i];
-
-  _mapEnvp.emplace( key, value );
-
-}
-
-
-std::map<const std::string, std::string >	ConfFile::getEnv()
-{
-  auto						home = _mapEnvp.find( "HOME" );
-  std::ifstream					infile;
-
-  infile.open ( home->second + "/.sharkshellrc" );
-
-  if ( home != _mapEnvp.end()
+  if ( !home.empty()
        && infile.is_open() )
     {
       std::cout << "let set customs value" << std::endl;
@@ -54,10 +25,9 @@ std::map<const std::string, std::string >	ConfFile::getEnv()
 
       while ( std::getline( infile, line ) )
 	if ( !line.find( "export " ) )
-	  this->setEnv( line );
+	  _sharkEnv->setEnv( line );
       infile.close();
     }
   else
     std::cout << "let set the default value" << std::endl;
-  return _mapEnvp;
 }

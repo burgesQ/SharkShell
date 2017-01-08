@@ -1,17 +1,19 @@
 #ifndef		__CONFFILE_HPP__
 # define	__CONFFILE_HPP__
 
-# include	<map>
+# include	<memory>
+
+# include	"SharkEnv.hpp"
 
 class		ConfFile
 {
 
 public :
 
-  explicit	ConfFile(char ** envp);
+  explicit	ConfFile(  std::shared_ptr< SharkEnv > envp);
   ~ConfFile();
 
-  std::map<const std::string, std::string >	getEnv();
+  std::map<const std::string, std::string >	rcFile();
 
 private :
 
