@@ -24,7 +24,9 @@ public :
   void		setCh(const int ch);
 
 private :
+
   int           _ch;
+  int           _selector;
   bool          _inputDetected;
   std::string   _inputBuffer;
 };

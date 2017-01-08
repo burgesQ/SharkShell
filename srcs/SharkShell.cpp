@@ -1,6 +1,9 @@
 # include               "SharkShell.hpp"
 
-SharkShell::SharkShell()
+SharkShell::SharkShell(char **envp) : _nc(),
+                                      _sharkAlias(std::make_shared<SharkAlias>()),
+                                      _sharkEnv(std::make_shared<SharkEnv>(envp)),
+                                      _confFile(std::make_shared<ConfFile>(_sharkEnv))
 {
   std::cout << "SharkShell" << std::endl;
 }
