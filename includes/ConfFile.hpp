@@ -13,14 +13,11 @@ public :
   explicit	ConfFile(  std::shared_ptr< SharkEnv > envp);
   ~ConfFile();
 
-  std::map<const std::string, std::string >	rcFile();
+  void	rcFile();
 
 private :
 
-  void						setEnv( const std::string & envLine );
-
-  char **					_tabEnvp;
-  std::map<const std::string, std::string>	_mapEnvp;
+  std::shared_ptr<SharkEnv>	_sharkEnv;
 
 };
 
