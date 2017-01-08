@@ -1,22 +1,10 @@
-# include	<iostream>
-# include	<memory>
+# include               "SharkShell.hpp"
 
-# include	"ConfFile.hpp"
-# include	"SharkEnv.hpp"
-# include	"SharkAlias.hpp"
-
-int		main(int, char **, char ** envp)
+int                     main(int ac, char **av, char **envp)
 {
-  std::cout << "SharkShell" << std::endl;
-
-  if (envp[0] == NULL)
+  if (!envp[0])
     return false;
+  SharkShell            shark(envp);
 
-  std::shared_ptr< SharkAlias >	sharkAlias = std::make_shared< SharkAlias >();
-  std::shared_ptr< SharkEnv >	sharkEnv = std::make_shared< SharkEnv >( envp );
-  std::shared_ptr< ConfFile >	confFile = std::make_shared< ConfFile >( sharkEnv );
-
-  confFile->rcFile();
-
-  return 0;
+  return shark.run();
 }
