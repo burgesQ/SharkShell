@@ -1,10 +1,11 @@
 # include               "SharkShell.hpp"
 
-int                     main(int ac, char **av, char **envp)
+int                     main(int , char **, char **envp)
 {
   if (!envp[0])
     return false;
-  SharkShell            shark(envp);
 
-  return shark.run();
+  std::shared_ptr< SharkShell > shark = std::make_shared< SharkShell > ( envp );
+
+  return shark->run();
 }

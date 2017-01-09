@@ -10,12 +10,15 @@ class		ConfFile
 
 public :
 
-  explicit	ConfFile(  std::shared_ptr< SharkEnv > envp);
+  explicit	ConfFile( std::shared_ptr< SharkEnv > envp );
   ~ConfFile();
 
-  void	rcFile();
+  void		rcFile();
 
 private :
+
+  void		defaultValue();
+  void		customValue(  std::ifstream & infile );
 
   std::shared_ptr<SharkEnv>	_sharkEnv;
 

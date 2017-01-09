@@ -30,8 +30,6 @@ set (
     CMAKE_CXX_STANDARD 14
 )
 
-find_package(Curses REQUIRED)
-
 # Directorys
 set (
     SOURCES_DIR ./srcs
@@ -40,11 +38,11 @@ set (
 set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
-    ${SOURCES_DIR}/Ncurses.cpp
     ${SOURCES_DIR}/SharkShell.cpp
-    ${SOURCES_DIR}/SharkEnv.cpp
     ${SOURCES_DIR}/SharkAlias.cpp
+    ${SOURCES_DIR}/SharkEnv.cpp
     ${SOURCES_DIR}/ConfFile.cpp
+    ${SOURCES_DIR}/SharkParser.cpp
 )
 
 include_directories(
@@ -60,5 +58,3 @@ add_executable (
     SharkShell
     ${SOURCES_SHARK_SHELL}
 )
-
-target_link_libraries(SharkShell ${CURSES_LIBRARIES})
