@@ -2,8 +2,8 @@
 
 # include	"SharkEnv.hpp"
 
-SharkEnv::SharkEnv( char ** envp )
-  : _mapEnvp()
+SharkEnv::SharkEnv( char ** envp ) :
+  _mapEnvp()
 {
   for ( int i = 0; envp[i]; ++i )
     {
@@ -21,12 +21,10 @@ void		SharkEnv::setEnv( const std::string & envLine )
   std::string	value;
   std::string	key;
 
-  std::cout << envLine << std::endl;
-
   for ( int i = 0; envLine[i]; ++i )
     if ( envLine[i] == '=' && !equal )
       equal = true;
-    else if (!equal)
+    else if ( !equal )
       key += envLine[i];
     else
       value += envLine[i];
@@ -40,5 +38,5 @@ const std::string	SharkEnv::get( const std::string & key ) const
 
   if ( it != _mapEnvp.end() )
     return it->second;
-  return nullptr;
+  return "";
 }
