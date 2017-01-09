@@ -1,8 +1,8 @@
 # include	<Ncurses.hpp>
 # include	<ncurses.h>
 
-Ncurses::Ncurses() : _selector(0),
-                     _inputDetected(false)
+Ncurses::Ncurses() : _ch(),
+                     _inputBuffer()
 {
   initscr();
 }
@@ -22,17 +22,12 @@ void                    Ncurses::refreshScreen()
   refresh();
 }
 
-void                    Ncurses::clearScreen()
-{
-  clear();
-}
-
 void                    Ncurses::close()
 {
   endwin();
 }
 
-const int               Ncurses::getCh() const
+int                     Ncurses::getCh() const
 {
   return _ch;
 }
@@ -64,49 +59,62 @@ const std::string&      Ncurses::getInputBuffer() const
   return _inputBuffer;
 }
 
+// debug
+#include<iostream>
+
 void                    Ncurses::handleEvent()
 {
   static unsigned int   y = 0;
+  int                   i = 0;
 
   switch (_ch)
     {
+
     case KEY_BACKSPACE:
       if (!_inputBuffer.empty())
         _inputBuffer.pop_back();
-      _inputDetected = true;
       --y;
       break;
 
     case KEY_LEFT:
       if (y)
-        y--;
-      _inputDetected = true;
+        --y;
       break;
 
     case KEY_RIGHT:
       if (y < _inputBuffer.size())
-        y++;
-      _inputDetected = true;
+        ++y;
+      break;
+
+    case KEY_SLEFT:
+      for (i = y - 1; isalpha(_inputBuffer[i]); --i);
+      if (_inputBuffer[i] == ' ' && _inputBuffer[i - 1] == ' ')
+        for (; _inputBuffer[i] == ' '; --i);
+      y = (i < 0 ? 0 : i);
+      break;
+
+    case KEY_SRIGHT:
+      for (i = y + 1; isalpha(_inputBuffer[i]); ++i);
+      if (_inputBuffer[i] == ' ' && _inputBuffer[i + 1] == ' ')
+        for (; _inputBuffer[i] == ' '; ++i);
+      y = i;
+      if (y > _inputBuffer.size())
+        y = _inputBuffer.size();
       break;
 
     default:
       if (_ch >= 32 && _ch <= 126)
         {
-          char ch = _ch;
-          std::string str;
-          str+=ch;
-          _inputBuffer.insert(y, str);
-          y++;
+          _inputBuffer.insert(y, std::string(1, _ch));
+          ++y;
         }
-      _inputDetected = true;
       break;
     }
 
-  if (_inputDetected)
+  if (_ch)
     {
-      this->clearScreen();
-      this->write(_inputBuffer);
-      _inputDetected = false;
+      clear();
+      write(_inputBuffer);
     }
   move(0, y);
 }
