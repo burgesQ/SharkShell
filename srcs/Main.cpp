@@ -1,6 +1,6 @@
 # include               "SharkShell.hpp"
 
-int                     main(int ac, char **av, char **envp)
+int                     main(int , char **, char **envp)
 {
   if (!envp[0])
     return false;
