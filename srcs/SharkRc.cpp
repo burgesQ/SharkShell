@@ -1,42 +1,40 @@
 # include	<iostream>
 # include	<fstream>
 
-# include	"ConfFile.hpp"
+# include	"SharkRc.hpp"
 
-ConfFile::ConfFile( std::shared_ptr< SharkEnv > envp ) :
+SharkRc::SharkRc( std::shared_ptr< SharkEnv > envp ) :
   _sharkEnv( envp )
 {}
 
-ConfFile::~ConfFile()
+SharkRc::~SharkRc()
 {}
 
-void	ConfFile::defaultValue()
+void	SharkRc::defaultValue()
 {
-  std::cout << "let set the default value" << std::endl;
-
-
   _sharkEnv->setEnv("PATH=sharkShell~~>");
+  // default path
+  // default alisa ?
+  // defualt conf bool [ colors | ... ]*
 }
 
-void	ConfFile::customValue( std::ifstream & infile )
+void	SharkRc::customValue( std::ifstream & infile )
 {
-  std::cout << "let set customs value" << std::endl;
   std::string				line;
 
   while ( std::getline( infile, line ) )
     if ( !line.find( "export " ) )
       _sharkEnv->setEnv( line.erase(0, 7) );
-
   infile.close();
 
 }
 
-void	ConfFile::rcFile()
+void	SharkRc::rcFile()
 {
   std::string		home = _sharkEnv->get( "HOME" );
   std::ifstream		infile;
 
-  infile.open ( home + "/.sharkshellrc" );
+  infile.open ( home + "/.sharkshellrc" ); // use directly ~ ? no more envp @ boot
 
   if ( !home.empty()
        && infile.is_open() )
