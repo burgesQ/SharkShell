@@ -41,8 +41,10 @@ set (
     ${SOURCES_DIR}/SharkShell.cpp
     ${SOURCES_DIR}/SharkAlias.cpp
     ${SOURCES_DIR}/SharkEnv.cpp
-    ${SOURCES_DIR}/ConfFile.cpp
+    ${SOURCES_DIR}/SharkRc.cpp
     ${SOURCES_DIR}/SharkParser.cpp
+    ${SOURCES_DIR}/SharkExec.cpp
+    ${SOURCES_DIR}/SharkBuiltIn.cpp
 )
 
 include_directories(

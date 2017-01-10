@@ -1,15 +1,10 @@
-# include	<iostream>
-
 # include	"SharkEnv.hpp"
 
 SharkEnv::SharkEnv( char ** envp ) :
   _mapEnvp()
 {
   for ( int i = 0; envp[i]; ++i )
-    {
-      std::string line ( envp[i] ) ;
-      this->setEnv( line );
-    }
+    this->setEnv( std::string( envp[i] ) );
 }
 
 SharkEnv::~SharkEnv()

@@ -1,5 +1,5 @@
-#ifndef		__SHARKALIAS_HPP__
-# define	__SHARKALIAS_HPP__
+#ifndef		__SHARK_ALIAS_HPP__
+# define	__SHARK_ALIAS_HPP__
 
 # include	<map>
 
@@ -11,9 +11,9 @@ public :
   SharkAlias();
   ~SharkAlias();
 
-  void						setAlias( const std::string & aliasLine );
+  void			setAlias( const std::string & aliasLine );
 
-  const std::string				get( const std::string & key ) const;
+  const std::string	get( const std::string & key ) const;
 
 private :
 
@@ -21,4 +21,4 @@ private :
 
 };
 
-# endif		// !__SHARKALIAS_HPP__
+# endif		// !__SHARK_ALIAS_HPP__

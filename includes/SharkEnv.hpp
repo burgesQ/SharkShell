@@ -1,5 +1,5 @@
-#ifndef		__SHARKENV_HPP__
-# define	__SHARKENV_HPP__
+#ifndef		__SHARK_ENV_HPP__
+# define	__SHARK_ENV_HPP__
 
 # include	<map>
 
@@ -21,4 +21,4 @@ private :
 
 };
 
-# endif		// !__SHARKENV_HPP__
+# endif		// !__SHARK_ENV_HPP__
