@@ -1,7 +1,7 @@
 # include	"SharkExec.hpp"
 
-SharkExec::SharkExec() :
-  _sharkBuiltIn( std::make_shared< SharkBuiltIn > () )
+SharkExec::SharkExec( std::shared_ptr< SharkEnv > sharkEnv ) :
+  _sharkBuiltIn( std::make_shared< SharkBuiltIn > ( sharkEnv ) )
 {}
 
 SharkExec::~SharkExec()

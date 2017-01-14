@@ -1,7 +1,7 @@
 # include	"SharkParser.hpp"
 
-SharkParser::SharkParser() :
-  _sharkExec( std::make_shared< SharkExec > () )
+SharkParser::SharkParser( std::shared_ptr< SharkEnv > sharkEnv ) :
+  _sharkExec( std::make_shared< SharkExec > ( sharkEnv ) )
 {}
 
 SharkParser::~SharkParser()
@@ -10,9 +10,10 @@ SharkParser::~SharkParser()
 std::vector <  std::string >	SharkParser::splitLine( const std::string & line )
 {
   std::vector < std::string >	oneCmd;
-  std::string						chunk;
+  std::string			chunk;
 
   chunk.clear();
+
   for ( auto it : line )
     if ( it != ' ' )
       chunk += it;
@@ -32,11 +33,10 @@ std::pair< bool, int >		SharkParser::parsLine( const std::string & line )
 
   if ( _sharkExec->getSharkBuiltIn()->isBuiltIn( oneCmd[0] ) )
     return _sharkExec->execBuiltIn( oneCmd );
-  // check if builtIn
-  // exec BuiltIn
   // else if in path
   // exec
   // else
   // cmd not found
+
   return { true, 0 };
 }

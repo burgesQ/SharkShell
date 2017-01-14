@@ -1,7 +1,14 @@
+# include	<iostream>
+
 # include	"SharkBuiltIn.hpp"
 
-SharkBuiltIn::SharkBuiltIn() :
- _builtIn{ { "exit" , &SharkBuiltIn::exit } }
+SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) :
+  _sharkEnv( sharkEnv ),
+  _builtIn{ { "exit" , &SharkBuiltIn::exit },
+    { "help" , &SharkBuiltIn::help },
+      { "env" , &SharkBuiltIn::env },
+	{ "setEnv" , &SharkBuiltIn::env },
+	  { "unSetEnv" , &SharkBuiltIn::env } }
 {}
 
 SharkBuiltIn::~SharkBuiltIn()
@@ -14,7 +21,13 @@ std::pair< bool, int >	SharkBuiltIn::exit( const std::vector< std::string > & cm
   return { false, std::atoi(cmd[1].c_str()) };
 }
 
-bool		SharkBuiltIn::isBuiltIn( const std::string & cmd ) const
+std::pair< bool, int >	SharkBuiltIn::help( const std::vector< std::string > & )
+{
+  std::cout << "This will be a amazing help page; maybe a man page !" << std::endl;
+  return { true, 0 };
+}
+
+bool		SharkBuiltIn::isBuiltIn(  const std::string & cmd ) const
 {
   return ( _builtIn.find( cmd ) == _builtIn.end() ) ? false : true;
 }

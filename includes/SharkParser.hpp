@@ -11,7 +11,7 @@ class		SharkParser
 
 public :
 
-  explicit SharkParser();
+  explicit SharkParser( std::shared_ptr< SharkEnv > sharkEnv );
   ~SharkParser();
 
   std::pair< bool, int >	parsLine( const std::string & line );

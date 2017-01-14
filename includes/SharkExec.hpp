@@ -11,7 +11,7 @@ class		SharkExec
 
 public :
 
-  explicit SharkExec();
+  explicit SharkExec( std::shared_ptr< SharkEnv > sharkEnv );
   ~SharkExec();
 
   const std::shared_ptr< SharkBuiltIn > &	getSharkBuiltIn() const;

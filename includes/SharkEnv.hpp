@@ -11,13 +11,15 @@ public :
   SharkEnv( char ** envp );
   ~SharkEnv();
 
+  std::map< const std::string, std::string >	getMapEnv() const;
+
   void						setEnv( const std::string & envLine );
 
   const std::string				get( const std::string & key ) const;
 
 private :
 
-  std::map<const std::string, std::string>	_mapEnvp;
+  std::map<const std::string, std::string >	_mapEnvp;
 
 };
 

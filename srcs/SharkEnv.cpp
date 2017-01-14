@@ -10,6 +10,11 @@ SharkEnv::SharkEnv( char ** envp ) :
 SharkEnv::~SharkEnv()
 {}
 
+std::map< const std::string, std::string >	SharkEnv::getMapEnv() const
+{
+  return _mapEnvp;
+}
+
 void		SharkEnv::setEnv( const std::string & envLine )
 {
   bool		equal = false;
