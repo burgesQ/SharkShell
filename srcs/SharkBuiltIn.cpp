@@ -2,9 +2,10 @@
 
 # include	"SharkBuiltIn.hpp"
 
-SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) :
-  _sharkEnv( sharkEnv ),
-  _builtIn{ { "exit" , &SharkBuiltIn::exit },
+//TODO cd, echo
+SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( sharkEnv ),
+								     _builtIn {
+  { "exit" , &SharkBuiltIn::exit },
     { "help" , &SharkBuiltIn::help },
       { "env" , &SharkBuiltIn::env },
 	{ "setEnv" , &SharkBuiltIn::env },

@@ -36,6 +36,14 @@ set (
 )
 
 set (
+    INCLUDES_DIR ./includes
+)
+
+set (
+    SHARED_DIR ./includes/Shared
+)
+
+set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
     ${SOURCES_DIR}/SharkShell.cpp
@@ -48,8 +56,14 @@ set (
     ${SOURCES_DIR}/SharkRc.cpp
 )
 
+set (
+  SOURCES_SHARED
+  ${SHARED_DIR}/SplitLines.cpp
+)  
+
 include_directories(
-  includes
+  ${INCLUDES_DIR}
+  ${SHARED_DIR}
 )
 
 include_directories(
@@ -60,4 +74,5 @@ include_directories(
 add_executable (
     SharkShell
     ${SOURCES_SHARK_SHELL}
+    ${SOURCES_SHARED}
 )

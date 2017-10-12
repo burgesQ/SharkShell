@@ -3,7 +3,7 @@
 
 # include	<string>
 # include	<memory>
-
+# include	<vector>
 # include	"SharkBuiltIn.hpp"
 
 class		SharkExec
@@ -18,11 +18,14 @@ public :
 
   void						execCmd( const std::string & line, const std::string & path );
   std::pair< bool, int >			execBuiltIn( std::vector< std::string > oneCmd );
+  std::string					isExecutable(const std::string & cmd);
 
 private :
 
-  std::shared_ptr< SharkBuiltIn >	_sharkBuiltIn;
+  std::shared_ptr< SharkBuiltIn >		_sharkBuiltIn;
+  std::shared_ptr< SharkEnv >			_sharkEnv;
 
+  const std::vector< std::string >		_getPaths();
 
 };
 

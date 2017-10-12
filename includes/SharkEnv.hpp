@@ -16,6 +16,7 @@ public :
   void						setEnv( const std::string & envLine );
 
   const std::string				get( const std::string & key ) const;
+  void getPaths();
 
 private :
 

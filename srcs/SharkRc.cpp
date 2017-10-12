@@ -36,10 +36,9 @@ void			SharkRc::rcFile()
 
   infile.open ( home + "/.sharkshellrc" ); // use directly ~ ? no more envp @ boot
 
+  this->defaultValue();  
   if ( !home.empty()
        && infile.is_open() )
     this->customValue(infile);
-  else
-    this->defaultValue();
 
 }

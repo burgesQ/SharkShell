@@ -41,3 +41,4 @@ const std::string	SharkEnv::get( const std::string & key ) const
     return it->second;
   return "";
 }
+
