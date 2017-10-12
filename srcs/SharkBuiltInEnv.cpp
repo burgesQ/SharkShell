@@ -11,11 +11,14 @@ std::pair< bool, int >	SharkBuiltIn::env( const  std::vector< std::string > & cm
 
 std::pair< bool, int >	SharkBuiltIn::setEnv( const std::vector< std::string > & cmd )
 {
-  std::string key = cmd;
+  for (auto it : cmd) {
+    std::cout << it << std::endl;
+  }
 
-  key.erase(0, 7);
-
-  std::cout << key << std::endl;
+  //    std::string key = cmd[1];
+//  key.erase(0, 7);
+//
+//  std::cout << key << std::endl;
 
 
   return { true, 0 };

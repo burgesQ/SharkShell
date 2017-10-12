@@ -5,7 +5,7 @@
 SharkShell::SharkShell( char ** envp ) :
   _sharkAlias( std::make_shared< SharkAlias > () ),
   _sharkEnv( std::make_shared< SharkEnv > ( envp ) ),
-  _sharkRc( std::make_shared< SharkRc > ( _sharkEnv) ),
+  _sharkRc( std::make_shared< SharkRc > ( _sharkEnv ) ),
   _sharkParser( std::make_shared< SharkParser > ( _sharkEnv ) )
 {
   std::cout << "SharkShell" << std::endl;
