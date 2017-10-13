@@ -53,12 +53,15 @@ set (
     ${SOURCES_DIR}/SharkExec.cpp
     ${SOURCES_DIR}/SharkBuiltIn.cpp
     ${SOURCES_DIR}/SharkBuiltInEnv.cpp
+    ${SOURCES_DIR}/SharkBuiltInCd.cpp
     ${SOURCES_DIR}/SharkRc.cpp
 )
 
 set (
   SOURCES_SHARED
   ${SHARED_DIR}/SplitLines.cpp
+  ${SHARED_DIR}/Match.cpp
+  ${SHARED_DIR}/FileAccess.cpp
 )  
 
 include_directories(

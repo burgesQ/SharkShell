@@ -1,11 +1,14 @@
 # include	<iostream>
-
+# include	<unistd.h>
 # include	"SharkBuiltIn.hpp"
 
 //TODO cd, echo
 SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( sharkEnv ),
-								     _builtIn {
+								     _pwd(get_current_dir_name()),
+ _builtIn {
   { "exit" , &SharkBuiltIn::exit },
+    {"pwd", &SharkBuiltIn::pwd },
+   { "cd", &SharkBuiltIn::cd },
     { "help" , &SharkBuiltIn::help },
       { "env" , &SharkBuiltIn::env },
 	{ "setEnv" , &SharkBuiltIn::env },
@@ -14,6 +17,12 @@ SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( 
 
 SharkBuiltIn::~SharkBuiltIn()
 {}
+
+std::pair< bool, int >	SharkBuiltIn::pwd( const std::vector< std::string > & cmd )
+{
+  std::cout << _pwd << std::endl;
+  return { true, 0 };
+}
 
 std::pair< bool, int >	SharkBuiltIn::exit( const std::vector< std::string > & cmd )
 {
@@ -37,3 +46,4 @@ std::pair< bool, int >	SharkBuiltIn::execBuiltIn( const std::vector< std::string
 {
   return builtInCall(*this, _builtIn[cmd[0]])(cmd);
 }
+
