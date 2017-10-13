@@ -2,19 +2,18 @@
 # include	"SharkBuiltIn.hpp"
 # include	"MobyDick.h"
 
-void			SharkBuiltIn::_cdBack(const std::string &)
+void			SharkBuiltIn::_cdBack()
 {
   try {
     std::string		newPwd;
-    unsigned int		pathIndex = 0;
+    unsigned int	pathIndex = 0;
     const std::vector<std::string> pwdPaths = MobyDick::SplitLines(_pwd, '/');
 
-    for (const auto &it : pwdPaths)
-      {
-	pathIndex++;
-	if (pathIndex && pathIndex < pwdPaths.size() && !it.empty())
-	  newPwd += "/" + it;
-      }
+    for (const auto &it : pwdPaths) {
+      pathIndex++;
+      if (pathIndex && pathIndex < pwdPaths.size() && !it.empty())
+	newPwd += "/" + it;
+    }
     _oldPwd = _pwd;
     _pwd = newPwd;
     if (_pwd.empty())
@@ -22,73 +21,75 @@ void			SharkBuiltIn::_cdBack(const std::string &)
     if (chdir(_pwd.c_str()) == -1)
       throw new SharkException("Error with pwd");
   } catch (SharkException se) {
-    throw new SharkException(se.guessWhat());
-  }    
+    std::cerr << se.what() << std::endl;
+  }
 }
 
-void			SharkBuiltIn::_cdOldPwd(const std::string &)
+void			SharkBuiltIn::_cdOldPwd()
 {
   try {
     if (_oldPwd.empty())
       std::cout << "Previous directory is empty actually.." << std::endl;
     else if (chdir(_oldPwd.c_str()) == -1)
       throw new SharkException("Error with pwd");
-    else
-      {
-	std::string tmp = _oldPwd;	
-	_pwd = _oldPwd;
-	_oldPwd = tmp;
-      }
+    else {
+      std::string	tmp = _oldPwd;
+      _pwd = _oldPwd;
+      _oldPwd = tmp;
+    }
   } catch (SharkException se) {
-    throw new SharkException (se.guessWhat());
+    std::cerr << se.what() << std::endl;
   }
 }
 
 void			SharkBuiltIn::_cdClassic(const std::string &cmd)
 {
   try {
-    std::string fromRoot(_pwd + "/" + cmd);
+    std::string		currentCmd(MobyDick::startsWith(cmd, "./") ? cmd.substr(2, cmd.size()) : cmd);
+    std::string		fromRoot(_pwd + "/" + currentCmd);
 
     if (MobyDick::directoryExist(fromRoot)) {
       if (chdir(fromRoot.c_str()) == -1)
 	throw new SharkException("Error with pwd");
       _oldPwd = _pwd;
-      _pwd = "/" + MobyDick::reformatPath(fromRoot, '/');
+      _pwd = (_pwd[0] != '/' ? "/" : "") + MobyDick::reformatPath(fromRoot, '/');
 
-    } else if (MobyDick::directoryExist(cmd)) {
-      if (chdir(cmd.c_str()) == -1)
+    } else if (MobyDick::directoryExist(currentCmd)) {
+      if (chdir(currentCmd.c_str()) == -1)
 	throw new SharkException("Error with pwd");
       _oldPwd = _pwd;
-      _pwd = MobyDick::reformatPath(cmd, '/');
+      _pwd = MobyDick::reformatPath(currentCmd, '/');
 
     } else {
-      std::cerr << "You must provide a directory to change" << std::endl;
+      std::cerr << "wrong path : " + currentCmd << std::endl;
       return ;
     }
   } catch (SharkException se) {
-    throw new SharkException (se.guessWhat());
+    std::cerr << se.what() << std::endl;
   }
 }
 
 std::pair<bool, int>	SharkBuiltIn::cd(const std::vector<std::string> &cmd)
 {
   try {
-  if (cmd.size() < 3) {
-    for (unsigned int i = 1; i < cmd.size(); i++) {
-      if (cmd[i] == "-")
-	_cdOldPwd(cmd[i]);
-      else if (cmd[i] == "..")
-	_cdBack(cmd[i]);
-      else if (cmd[i] == "." || cmd[i] == "./")
-	continue;
+    const unsigned int cmdSize = cmd.size();
+    if (cmd[0] == "cd.." && cmdSize == 1)
+      _cdBack();
+    if (cmdSize == 2) {
+      if (cmd[1] == "-")
+	_cdOldPwd();
+      else if (cmd[1] == "..")
+	_cdBack();
+      else if (cmd[1] == "." || cmd[1] == "./")
+	return {true, 0};
       else
-	_cdClassic(cmd[i]);
+	_cdClassic(cmd[1]);
+      std::cout << _pwd << std::endl;
     }
-  }
-  else
-    std::cerr << "cd can take 3 arguments : cd <option> <directory>" << std::endl;
+    else
+      std::cerr << "cd take only 1 argument : cd <directoryToChange>" << std::endl;
   } catch (SharkException se) {
-    throw new SharkException ("cd::" + se.guessWhat());
-  }  
+    std::cerr << "BuiltIn::cd::" << se.what() << std::endl;
+  }
   return {true, 0};
 }

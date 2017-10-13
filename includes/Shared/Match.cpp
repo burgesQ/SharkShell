@@ -13,16 +13,9 @@ bool			MobyDick::IsMatchCaseInsensitive(const std::string& s1, const std::string
   return true;
 }
 
-bool			MobyDick::IsMatchCaseInsensitiveSomeWhere(const std::string& s1, const std::string& s2)
+bool			MobyDick::IsMatchCaseInsensitiveSomeWhere(const std::string& , const std::string& )
 {
   bool stillMatch = false;
-  // for (unsigned int i = 0; i < s1.size(); ++i)
-  //   {
-  //     if (tolower(s1[i]) == tolower(s2[i]))
-	
-      
-		      
-  //   }
   return stillMatch;
 }
 

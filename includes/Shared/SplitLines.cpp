@@ -1,9 +1,8 @@
 # include			"MobyDick.h"
 
-std::vector <  std::string >	MobyDick::SplitLines(const std::string& line, char sep)
+const std::vector < std::string >	MobyDick::SplitLines(const std::string& line, const char sep)
 {
   std::vector < std::string >	vec;
-
   try {
     std::string			chunk = "";
     for (auto it : line)
@@ -20,12 +19,12 @@ std::vector <  std::string >	MobyDick::SplitLines(const std::string& line, char 
     if (!chunk.empty())
       vec.push_back(chunk);
   } catch (SharkException se) {
-    throw new SharkException ("::splitLine::" + se.guessWhat());
+    std::cerr << se.what() << std::endl;
   }
   return vec;
 }
 
-std::string			MobyDick::reformatPath(const std::string& line, char sep)
+std::string			MobyDick::reformatPath(const std::string& line, const char sep)
 {
   std::string			 formatedPath = std::string(1, sep);
   try {
@@ -37,7 +36,12 @@ std::string			MobyDick::reformatPath(const std::string& line, char sep)
 	  formatedPath += sep;
       }
   } catch (SharkException se) {
-    throw new SharkException ("::reformatPath::" + se.guessWhat());
+    std::cerr << se.what() << std::endl;
   }
   return formatedPath;
+}
+
+bool				MobyDick::startsWith(const std::string& src, const std::string& token)
+{
+  return src.substr(0, token.length()) == token;
 }

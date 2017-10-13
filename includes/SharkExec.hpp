@@ -16,7 +16,8 @@ public :
 
   const std::shared_ptr< SharkBuiltIn > &	getSharkBuiltIn() const;
 
-  void						execCmd( const std::string & line, const std::string & path );
+  void						execCmd( const std::vector<std::string> cmd,
+							 const std::string & pathToCmd );
   std::pair< bool, int >			execBuiltIn( std::vector< std::string > oneCmd );
   std::string					isExecutable(const std::string & cmd);
 

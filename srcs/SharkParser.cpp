@@ -12,23 +12,24 @@ SharkParser::~SharkParser()
 std::pair< bool, int >		SharkParser::parsLine( const std::string & line )
 {
   try {
-    std::vector< std::string >	oneCmd = MobyDick::SplitLines(line, ' ');
-  
-    if ( _sharkExec->getSharkBuiltIn()->isBuiltIn( oneCmd[0] ) )
-      return _sharkExec->execBuiltIn( oneCmd );
+  const std::vector< std::string > oneCmd = MobyDick::SplitLines(line, ' ');
 
-    // std::string pathToCmd;
-    // pathToCmd = _sharkExec->isExecutable( oneCmd[0] );
-    // if (pathToCmd && !pathToCmd.empty())
-    //   {
-	
-    // 	std::cout << "EXECUTABLE!! :: " << pathToCmd << std::endl;
-    // 	// _sharkExec->exec(pathToCmd);
-    //   }
-    // else
-    //   std::cout << "Command not found : " << oneCmd[0] << std::endl;
-  } catch (SharkException e) {
-    std::cerr << e.what() << std::endl;
-  }
+  if ( _sharkExec->getSharkBuiltIn()->isBuiltIn( oneCmd[0] ) )
+    return _sharkExec->execBuiltIn( oneCmd );
+
+  std::string pathToCmd;
+  pathToCmd = _sharkExec->isExecutable( oneCmd[0] );
+  if (!pathToCmd.empty())
+    {
+      _sharkExec->execCmd(oneCmd, pathToCmd);
+      std::cout << "EXECUTABLE!! :: " << pathToCmd + "/" + oneCmd[0]<< std::endl;
+      // _sharkExec->exec(pathToCmd);
+    }
+  else
+    std::cout << "Command not found : " << oneCmd[0] << std::endl;
+
   return { true, 0 };
+  } catch (SharkException se) {
+    std::cerr << "HALLO:" << se.what() << std::endl;
+  }
 }

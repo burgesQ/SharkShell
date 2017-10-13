@@ -34,8 +34,6 @@ public :
 
   // std::pair< bool, int >		socket(std::vector< const std::string & > cmd );
 
-  // std::pair< bool, int >		cd(std::vector< const std::string & > cmd );
-
   bool					isBuiltIn( const std::string & cmd ) const;
   std::pair< bool, int >		execBuiltIn( const std::vector< std::string > & cmd );
 
@@ -43,16 +41,15 @@ private :
 
   std::shared_ptr< SharkEnv >		_sharkEnv;
   std::map< std::string , builtIn >	_builtIn;
-  std::string				_oldPwd;
-  std::string				_pwd;
 
 
 
   /// cd
-
-  void					_cdBack(const std::string &);
-  void					_cdClassic(const std::string &);
-  void					_cdOldPwd(const std::string &);
+  std::string				_oldPwd;
+  std::string				_pwd;
+  void					_cdBack();
+  void					_cdOldPwd();
+  void					_cdClassic(const std::string &cmd);
 };
 
 # endif		// !__SHARK_BUILTIN_HPP__

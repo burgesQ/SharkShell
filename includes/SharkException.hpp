@@ -6,7 +6,7 @@
 class	        SharkException : public std::exception
 {
 public:
-  SharkException(const std::string &what) throw() : _what(what)
+  SharkException(const char *what) throw() : _what(what)
   {
   }
 
@@ -17,11 +17,6 @@ public:
   virtual const char *what() const throw()
   {
     return _what.c_str();
-  }
-
-  const std::string& guessWhat() const
-  {
-    return _what;
   }
 
 private:
