@@ -13,6 +13,8 @@ public :
 
   std::map< const std::string, std::string >	getMapEnv() const;
 
+  void						unSetEnv( const std::string & envKey );
+
   void						setEnv( const std::string & envLine );
 
   const std::string				get( const std::string & key ) const;

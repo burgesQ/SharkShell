@@ -16,10 +16,28 @@ const std::shared_ptr< SharkBuiltIn > &	SharkExec::getSharkBuiltIn() const
   return _sharkBuiltIn;
 }
 
+std::pair< bool, int >	SharkExec::execBuiltIn( const std::vector< std::string > cmd )
+{
+  return _sharkBuiltIn->execBuiltIn( cmd );
+}
+
+std::string		SharkExec::isExecutable(const std:: string & cmd)
+{
+  const std::vector<std::string> getPaths = MobyDick::SplitLines(_sharkEnv->get("PATH"), ':');
+  std::vector<std::string>::const_iterator it = getPaths.begin();
+  for (; it != getPaths.end(); ++it) {
+    std::string testCmd(*it + "/" + cmd);
+    if (MobyDick::fileExist(testCmd) && MobyDick::fileIsExecutable(testCmd))
+      return *it;
+  }
+  return "";
+}
+
 void	SharkExec::execCmd( const std::vector<std::string> cmd,
  			    const std::string & pathToBin)
 {
   try {
+
     const unsigned int nbParams = cmd.size();
 
     char ** const	cmdToTab = (char **)malloc(sizeof(char *) * (nbParams));
@@ -45,24 +63,8 @@ void	SharkExec::execCmd( const std::vector<std::string> cmd,
       if (ret == -1)
 	throw new SharkException("excve failed");
     }
+
   } catch (SharkException se) {
     std::cerr << "execCmd::" << se.what() << std::endl;
   }
-}
-
-std::pair< bool, int >	SharkExec::execBuiltIn( const std::vector< std::string > cmd )
-{
-  return _sharkBuiltIn->execBuiltIn( cmd );
-}
-
-std::string		SharkExec::isExecutable(const std:: string & cmd)
-{
-  const std::vector<std::string> getPaths = MobyDick::SplitLines(_sharkEnv->get("PATH"), ':');
-  std::vector<std::string>::const_iterator it = getPaths.begin();
-  for (; it != getPaths.end(); ++it) {
-    std::string testCmd(*it + "/" + cmd);
-    if (MobyDick::fileExist(testCmd) && MobyDick::fileIsExecutable(testCmd))
-      return *it;
-  }
-  return "";
 }

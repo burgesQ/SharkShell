@@ -11,8 +11,8 @@ SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( 
    { "cd", &SharkBuiltIn::cd },
     { "help" , &SharkBuiltIn::help },
       { "env" , &SharkBuiltIn::env },
-	{ "setEnv" , &SharkBuiltIn::env },
-	  { "unSetEnv" , &SharkBuiltIn::env } }
+	{ "setEnv" , &SharkBuiltIn::setEnv },
+	  { "unSetEnv" , &SharkBuiltIn::unSetEnv } }
 {}
 
 SharkBuiltIn::~SharkBuiltIn()
@@ -46,4 +46,3 @@ std::pair< bool, int >	SharkBuiltIn::execBuiltIn( const std::vector< std::string
 {
   return builtInCall(*this, _builtIn[cmd[0]])(cmd);
 }
-
