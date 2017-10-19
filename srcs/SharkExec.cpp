@@ -1,3 +1,4 @@
+# include	<string.h>
 # include	<unistd.h>
 # include	<sys/types.h>
 # include	"SharkExec.hpp"
@@ -27,11 +28,12 @@ std::string		SharkExec::isExecutable(const std:: string & cmd)
   std::vector<std::string>::const_iterator it = getPaths.begin();
   for (; it != getPaths.end(); ++it) {
     std::string testCmd(*it + "/" + cmd);
-    if (MobyDick::fileExist(testCmd) && MobyDick::fileIsExecutable(testCmd))
+    if (MobyDick::fileExist(testCmd) && MobyDick::IsExecutable(testCmd))
       return *it;
   }
   return "";
 }
+
 
 void	SharkExec::execCmd( const std::vector<std::string> cmd,
  			    const std::string & pathToBin)
@@ -40,19 +42,19 @@ void	SharkExec::execCmd( const std::vector<std::string> cmd,
 
     const unsigned int nbParams = cmd.size();
 
-    char ** const	cmdToTab = (char **)malloc(sizeof(char *) * (nbParams));
+    char ** const	cmdToTab = (char **)malloc(sizeof(char *) * (nbParams + 1));
     if (cmdToTab == NULL && nbParams < 1)
       throw new SharkException("malloc failed");
 
     char * const	envp[2] = {
-      const_cast<char *>(_sharkEnv->get("PATH").c_str()),
+      strdup(_sharkEnv->get("PATH").c_str()),
       NULL
     };
 
     unsigned int cmdIndex = 0;
     std::string fullCmd(pathToBin + "/"+ cmd[0]);
     for (const auto &it : cmd)
-      cmdToTab[cmdIndex++] = const_cast<char *>(cmdIndex == 0 ? fullCmd.c_str() : it.c_str());
+      cmdToTab[cmdIndex++] = strdup(cmdIndex == 0 ? fullCmd.c_str() : it.c_str());
     cmdToTab[cmdIndex] = NULL;
 
     pid_t pid;

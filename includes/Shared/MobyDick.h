@@ -9,7 +9,7 @@ class		MobyDick
 
   static bool directoryExist(const std::string& dirName);
   static bool fileExist(const std::string& fileName);
-  static bool fileIsExecutable(const std::string& fileName);
+  static bool IsExecutable(const std::string& fileName);
 
   static const std::vector< std::string > SplitLines( const std::string& line, const char sep);
   static std::string reformatPath(const std::string& line, const char sep);

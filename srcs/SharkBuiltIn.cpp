@@ -1,22 +1,49 @@
 # include	<iostream>
 # include	<unistd.h>
 # include	"SharkBuiltIn.hpp"
+# include	"MobyDick.h"
 
 //TODO cd, echo
 SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( sharkEnv ),
+								     _sharkAlias(),
 								     _pwd(get_current_dir_name()),
  _builtIn {
   { "exit" , &SharkBuiltIn::exit },
     {"pwd", &SharkBuiltIn::pwd },
-   { "cd", &SharkBuiltIn::cd },
-    { "help" , &SharkBuiltIn::help },
-      { "env" , &SharkBuiltIn::env },
-	{ "setEnv" , &SharkBuiltIn::setEnv },
-	  { "unSetEnv" , &SharkBuiltIn::unSetEnv } }
+      { "alias", &SharkBuiltIn::alias },
+	{ "cd", &SharkBuiltIn::cd },
+	  { "help" , &SharkBuiltIn::help },
+	    { "env" , &SharkBuiltIn::env },
+	      { "setEnv" , &SharkBuiltIn::setEnv },
+		{ "unSetEnv" , &SharkBuiltIn::unSetEnv } }
 {}
 
 SharkBuiltIn::~SharkBuiltIn()
 {}
+
+std::pair< bool, int >		SharkBuiltIn::alias(const std::vector< std::string > & cmd )
+{
+  if (cmd.size() == 2)
+    {
+      _sharkAlias->setAlias(cmd[1]);
+      std::cout << "ICI=>" << _sharkAlias->get(cmd[1]) << std::endl;
+
+      if (MobyDick::IsExecutable(cmd[1]))
+	{
+
+	  std::cout << "alias can work" << cmd[1] << std::endl;
+	}
+      else
+	{
+	  std::cout << "alias canot work" << cmd[1] << std::endl;
+	}
+    }
+  else if (cmd.size() == 3)
+    {
+
+    }
+  return { true, 0 };
+}
 
 std::pair< bool, int >	SharkBuiltIn::pwd( const std::vector< std::string > & cmd )
 {

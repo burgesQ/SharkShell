@@ -6,6 +6,7 @@
 # include	<memory>
 
 # include	"SharkEnv.hpp"
+# include	"SharkAlias.hpp"
 
 # define	builtInCall(instance, ptr) ((instance).*(ptr))
 
@@ -30,7 +31,7 @@ public :
 
   // std::pair< bool, int >		echo(std::vector< const std::string & > cmd );
 
-  // std::pair< bool, int >		alias(std::vector< const std::string & > cmd );
+  std::pair< bool, int >		alias(const std::vector< std::string > & cmd );
 
   // std::pair< bool, int >		socket(std::vector< const std::string & > cmd );
 
@@ -40,13 +41,14 @@ public :
 private :
 
   std::shared_ptr< SharkEnv >		_sharkEnv;
+  std::shared_ptr< SharkAlias >		_sharkAlias;
+  std::string				_pwd;
   std::map< std::string , builtIn >	_builtIn;
 
 
 
   /// cd
   std::string				_oldPwd;
-  std::string				_pwd;
   void					_cdBack();
   void					_cdOldPwd();
   void					_cdClassic(const std::string &cmd);
