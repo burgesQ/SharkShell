@@ -1,4 +1,5 @@
 #include <iostream>
+
 # include	"SharkEnv.hpp"
 
 SharkEnv::SharkEnv( char ** envp ) :
@@ -30,7 +31,7 @@ void		SharkEnv::setEnv( const std::string & envLine )
   for ( int i = 0; envLine[i]; ++i )
     if (envLine[i] == '=' && !equal)
       equal = true;
-    else if (!equal)
+    else if ( !equal )
       key += envLine[i];
     else
       value += envLine[i];

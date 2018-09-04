@@ -11,11 +11,11 @@ SharkBuiltIn::SharkBuiltIn( std::shared_ptr< SharkEnv > sharkEnv ) : _sharkEnv( 
   { "exit" , &SharkBuiltIn::exit },
     {"pwd", &SharkBuiltIn::pwd },
       { "alias", &SharkBuiltIn::alias },
-	{ "cd", &SharkBuiltIn::cd },
-	  { "help" , &SharkBuiltIn::help },
-	    { "env" , &SharkBuiltIn::env },
-	      { "setEnv" , &SharkBuiltIn::setEnv },
-		{ "unSetEnv" , &SharkBuiltIn::unSetEnv } }
+      	{ "cd", &SharkBuiltIn::cd },
+	        { "help" , &SharkBuiltIn::help },
+	          { "env" , &SharkBuiltIn::env },
+	            { "setEnv" , &SharkBuiltIn::setEnv },
+		            { "unSetEnv" , &SharkBuiltIn::unSetEnv } }
 {}
 
 SharkBuiltIn::~SharkBuiltIn()
