@@ -36,19 +36,37 @@ set (
 )
 
 set (
+    INCLUDES_DIR ./includes
+)
+
+set (
+    SHARED_DIR ./includes/Shared
+)
+
+set (
     SOURCES_SHARK_SHELL
     ${SOURCES_DIR}/Main.cpp
     ${SOURCES_DIR}/SharkShell.cpp
     ${SOURCES_DIR}/SharkAlias.cpp
     ${SOURCES_DIR}/SharkEnv.cpp
-    ${SOURCES_DIR}/SharkRc.cpp
     ${SOURCES_DIR}/SharkParser.cpp
     ${SOURCES_DIR}/SharkExec.cpp
     ${SOURCES_DIR}/SharkBuiltIn.cpp
+    ${SOURCES_DIR}/SharkBuiltInEnv.cpp
+    ${SOURCES_DIR}/SharkBuiltInCd.cpp
+    ${SOURCES_DIR}/SharkRc.cpp
 )
 
+set (
+  SOURCES_SHARED
+  ${SHARED_DIR}/SplitLines.cpp
+  ${SHARED_DIR}/Match.cpp
+  ${SHARED_DIR}/FileAccess.cpp
+)  
+
 include_directories(
-  includes
+  ${INCLUDES_DIR}
+  ${SHARED_DIR}
 )
 
 include_directories(
@@ -59,4 +77,5 @@ include_directories(
 add_executable (
     SharkShell
     ${SOURCES_SHARK_SHELL}
+    ${SOURCES_SHARED}
 )

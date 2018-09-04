@@ -24,8 +24,7 @@ void		SharkAlias::setAlias( const std::string & aliasLine )
       key += aliasLine[i];
     else
       value += aliasLine[i];
-
-  _mapAlias.emplace( key, value );
+  _mapAlias[key] = value;
 }
 
 const std::string	SharkAlias::get( const std::string & key ) const
@@ -34,5 +33,5 @@ const std::string	SharkAlias::get( const std::string & key ) const
 
   if ( it != _mapAlias.end() )
     return it->second;
-  return nullptr;
+  return "";
 }
